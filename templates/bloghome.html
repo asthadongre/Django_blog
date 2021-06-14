@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="header--buttons">
+       
+
+    <a href="/home"><span class="p-3 mb-2 bg-info text-white">Home Page</span></a>
+ 
+ 
+
+</div>
+
+
+<div class="container" align="left">
+    
+    {% for i in blog_obj %}
+    <ul>
+        
+        <h1><a href="{{i.get_absolute_url}}" style="color:blue; text-decoration: none;">{{i.title}}</a></h1>
+        <li><h4>{{i.name}}</h4></li>
+        <li>{{i.created_on}}</li>
+        <li><h3>{{i.description | truncatewords:10}}</h3></li>
+    </ul><br>
+    {% endfor %}
+
+    <nav >
+        {% if blog_obj.has_other_pages %}
+        <ul class="pagination">
+          {% if blog_obj.has_previous %}
+            <li><a href="?page={{ blog_obj.previous_page_number }}">Previous&nbsp;</a></li>
+          {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in blog_obj.paginator.page_range %}
+            {% if blog_obj.number == i %}
+              <li class="active"><span>{{ i }} &nbsp; <span class="sr-only">(current)</span></span></li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}&nbsp;</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if blog_obj.has_next %}
+            <li><a href="?page={{ blog_obj.next_page_number }}">Next</a></li>
+          {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </nav> 
+
+
+
+{% endblock %}
+
+
+    
+      
+
+
+   
